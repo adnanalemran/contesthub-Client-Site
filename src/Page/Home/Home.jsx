@@ -1,9 +1,12 @@
-import React from 'react';
+ 
+import Hero from './Hero/Hero';
+import Slider from './Slider/Slider';
 
 const Home = () => {
     return (
         <div>
-            home page 
+            <Hero/>
+            <Slider/>
         </div>
     );
 };
