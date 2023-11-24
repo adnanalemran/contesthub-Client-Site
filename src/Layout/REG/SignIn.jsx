@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-// import { AuthContext } from "../../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const showSuccessAlert = () => {
   Swal.fire({
@@ -24,8 +24,8 @@ const showErrorAlert = (error) => {
 const SignIn = () => {
   const location = useLocation();
   const navigate = useNavigate();
-//   const { signIn } = useContext(AuthContext);
-//   const { googleSignIn } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
+  const { googleSignIn } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -39,20 +39,21 @@ const SignIn = () => {
         const loggedInUser = result.user;
         console.log(loggedInUser);
         const user = { email };
-   
+
         showSuccessAlert();
 
-        axios
-          .post("https://b8a11-server-side-adnanalemran.vercel.app/jwt", user, { withCredentials: true })
-          .then((response) => {
-            if(response.data.success){
-              navigate(location?.state ? location.state : "/");
-            }
-            
-          })
-          .catch((error) => {
-            console.error("API request error:", error);
-          });
+        // do not use 
+        // axios
+        //   .post("https://b8a11-server-side-adnanalemran.vercel.app/jwt", user, { withCredentials: true })
+        //   .then((response) => {
+        //     if(response.data.success){
+        //       navigate(location?.state ? location.state : "/");
+        //     }
+
+        //   })
+        //   .catch((error) => {
+        //     console.error("API request error:", error);
+        //   });
       })
 
       .catch((error) => {
@@ -70,21 +71,18 @@ const SignIn = () => {
       .then((result) => {
         const loggedInUser = result.user;
         console.log(loggedInUser);
-        const user = { email: loggedInUser.email };  
- 
-        
+        const user = { email: loggedInUser.email };
+
         showSuccessAlert();
-  
-        axios
-          .post("https://b8a11-server-side-adnanalemran.vercel.app/jwt", user, { withCredentials: true })
-          .then((response) => {
-            if(response.data.success){
-              navigate(location?.state ? location.state : "/");
-            }
-          })
-          .catch((error) => {
-            console.error("API request error:", error);
-          });
+// do not use 
+        // axios
+        //   .post("https://b8a11-server-side-adnanalemran.vercel.app/jwt", user, { withCredentials: true })
+        //   .then((response) => {
+        //     if(response.data.success){
+        //       navigate(location?.state ? location.state : "/");
+        //     }
+        //   })
+        navigate(location?.state?.from ? location.state.from : "/");
       })
       .catch((error) => {
         console.log(error);
@@ -92,16 +90,21 @@ const SignIn = () => {
       });
   };
   return (
-    <div style={{
-        backgroundImage: "url(https://pixner.net/egamlio/main/assets/images/login-reg-bg.png)",
-      }} className="py-8  min-h-screen">
-        <Helmet>
+    <div
+      style={{
+        backgroundImage:
+          "url(https://pixner.net/egamlio/main/assets/images/login-reg-bg.png)",
+      }}
+      className="py-8  min-h-screen"
+    >
+      <Helmet>
         <title>ContestHub || Login page</title>
       </Helmet>
-      <Link to="/"> 
-      <div className="w-52 mx-auto py-1">
-        <img src="./logo.png" alt="" />
-      </div></Link>
+      <Link to="/">
+        <div className="w-52 mx-auto py-1">
+          <img src="./logo.png" alt="" />
+        </div>
+      </Link>
       <div className=" bg-[#090539] w-full  mx-auto max-w-md p-8 py-16 space-y-3 rounded-xl border my-5  ">
         <h1 className="text-2xl font-bold text-center pb-2">Sign In</h1>
         <form className="space-y-6" onSubmit={handleLogin}>

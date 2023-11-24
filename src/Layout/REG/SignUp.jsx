@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-// import { AuthContext } from "../../providers/AuthProvider";
+import { AuthContext } from "../../providers/AuthProvider";
 function validatePassword(password) {
   if (
     password.length < 6 ||
@@ -16,7 +16,7 @@ function validatePassword(password) {
 }
 
 const SignUp = () => {
-//   const { createUser } = useContext(AuthContext);
+  const { createUser } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
