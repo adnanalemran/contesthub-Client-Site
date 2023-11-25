@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../providers/AuthProvider";
-import "./header.css"
+import "./header.css";
 const showSuccessAlert = () => {
   Swal.fire({
     icon: "success",
@@ -19,7 +19,7 @@ const Header = () => {
   useEffect(() => {
     axios
       .get(
-        `https://b8a11-server-side-adnanalemran.vercel.app/user/${user?.uid}`
+        ` http://localhost:5000/user/${user?.uid}`
       )
       .then((res) => {
         setDbuser(res.data);

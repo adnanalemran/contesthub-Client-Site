@@ -8,6 +8,7 @@ import SignUp from "../Layout/REG/SignUp";
 import Dashboard from "../Layout/Dashboard/Dashboard";
 import Analysis from "../Layout/Dashboard/Analysis/Analysis";
 import AddContest from "../Layout/Dashboard/AddContest/AddContest";
+import MyCreatedContest from "../Layout/Dashboard/MyCreatedContest/MyCreatedContest";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,14 @@ const router = createBrowserRouter([
       {
         path: "/Dashboard/AddContest",
         element: <AddContest />,
+      },
+      {
+        path: "/Dashboard/MyCreatedContest",
+        element: <MyCreatedContest />,
+      },
+      {
+        path: "/Dashboard/ContestSubmittedPage",
+        element: <MyCreatedContest />,
       },
     ],
   },

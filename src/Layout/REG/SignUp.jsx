@@ -55,7 +55,7 @@ const SignUp = () => {
           password,
           userOrderCount,
         };
-        fetch("https://b8a11-server-side-adnanalemran.vercel.app/user", {
+        fetch(" http://localhost:5000/user", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -1,16 +1,14 @@
-import Header from "../Main/Header/Header";
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import {
-  Link,
   NavLink,
-  Navigate,
   Outlet,
   useLocation,
-  useNavigate,
+  useNavigate
 } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProvider";
+import Header from "../Main/Header/Header";
 import "./style.css";
 
 const showSuccessAlert = () => {
@@ -29,7 +27,7 @@ const Dashboard = () => {
   useEffect(() => {
     axios
       .get(
-        `https://b8a11-server-side-adnanalemran.vercel.app/user/${user?.uid}`
+        ` http://localhost:5000/user/${user?.uid}`
       )
       .then((res) => {
         setDbuser(res.data);
@@ -91,7 +89,7 @@ const Dashboard = () => {
           <div className="justify-around p-8 gap-9 text-center rounded-lg  my-8 bg-[#212472] w-full mx-4 g ">
             <div className=" flex flex-col gap-4">
               <NavLink to="/Dashboard">
-                <li className="btn  btn-primary text-white  w-full">
+                <li className="btn  btn-primary text-white  w-full border-none">
                   <img
                     src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-1.png"
                     alt=""
@@ -107,6 +105,26 @@ const Dashboard = () => {
                     alt=""
                   />
                   Add Contest
+                </li>
+              </NavLink>
+              <NavLink to="/Dashboard/MyCreatedContest">
+                <li className="btn   btn-primary text-white  w-full">
+                  <img
+                    src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
+                    alt=""
+                  />
+ 
+                  My Created Contest
+                </li>
+              </NavLink>   
+                 <NavLink to="/Dashboard/ContestSubmittedPage ">
+                <li className="btn   btn-primary text-white  w-full">
+                  <img
+                    src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
+                    alt=""
+                  />
+ 
+ Contest Submitted 
                 </li>
               </NavLink>
             </div>

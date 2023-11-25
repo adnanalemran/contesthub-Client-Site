@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useContext } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProvider";
+import axios from "axios";
 
 const showSuccessAlert = () => {
   Swal.fire({
@@ -42,20 +42,20 @@ const SignIn = () => {
 
         showSuccessAlert();
 
-        // do not use 
-        // axios
-        //   .post("https://b8a11-server-side-adnanalemran.vercel.app/jwt", user, { withCredentials: true })
-        //   .then((response) => {
-        //     if(response.data.success){
-        //       navigate(location?.state ? location.state : "/");
-        //     }
+      
+        axios
+          .post(" http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((response) => {
+            if(response.data.success){
+              navigate(location?.state ? location.state : "/");
+            }
 
-        //   })
-        //   .catch((error) => {
-        //     console.error("API request error:", error);
-        //   });
+          })
+          .catch((error) => {
+            console.log("API request error:", error);
+          });
       })
-
+ 
       .catch((error) => {
         console.log(error);
         if (error.code === "auth/invalid-login-credentials") {
@@ -66,6 +66,8 @@ const SignIn = () => {
       });
   };
 
+  
+
   const HandleGoogleLogin = () => {
     googleSignIn()
       .then((result) => {
@@ -74,14 +76,14 @@ const SignIn = () => {
         const user = { email: loggedInUser.email };
 
         showSuccessAlert();
-// do not use 
-        // axios
-        //   .post("https://b8a11-server-side-adnanalemran.vercel.app/jwt", user, { withCredentials: true })
-        //   .then((response) => {
-        //     if(response.data.success){
-        //       navigate(location?.state ? location.state : "/");
-        //     }
-        //   })
+ 
+        axios
+          .post(" http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((response) => {
+            if(response.data.success){
+              navigate(location?.state ? location.state : "/");
+            }
+          })
         navigate(location?.state?.from ? location.state.from : "/");
       })
       .catch((error) => {
