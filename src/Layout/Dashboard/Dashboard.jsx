@@ -45,7 +45,10 @@ const Dashboard = () => {
   };
   // todo
   // const [isAdmin] = useAdmin();
+ 
+
   const isAdmin = true;
+  const isControl = false;
   return (
     <div className="bg-[#090539]">
       <Header />
@@ -57,8 +60,15 @@ const Dashboard = () => {
         }}
       >
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold py-8 text-left text-white">
-            User DASHBOARD,
+          <p>Welcome,</p>
+          <h2 className="text-4xl font-bold py-4 lg:py-8 text-left text-white capitalize">
+            {isAdmin ? (
+              <>ADMIN DASHBOARD,</>
+            ) : isControl ? (
+              <> Control DASHBOARD,</>
+            ) : (
+              <> USER DASHBOARD,</>
+            )}
           </h2>
         </div>
       </div>
@@ -86,16 +96,46 @@ const Dashboard = () => {
             <div className=" flex flex-col gap-4">
               {isAdmin ? (
                 <>
-                  <NavLink to="/Dashboard/userHome">
+                  <NavLink to="/Dashboard/adminHome">
                     <li className="btn  btn-primary text-white  w-full border-none">
                       <img
                         src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-1.png"
                         alt=""
                       />
-                      User Home
+                      Admin Home
                     </li>
                   </NavLink>
 
+                  <NavLink to="/Dashboard/ManageUser">
+                    <li className="btn   btn-primary text-white  w-full">
+                      <img
+                        src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-3.png"
+                        alt=""
+                      />
+                      Manage User
+                    </li>
+                  </NavLink>
+                  <NavLink to="/Dashboard/ManageContest">
+                    <li className="btn   btn-primary text-white  w-full">
+                      <img
+                        src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
+                        alt=""
+                      />
+                      Manage Contest
+                    </li>
+                  </NavLink>
+                </>
+              ) : isControl ? (
+                <>
+                  <NavLink to="/Dashboard">
+                    <li className="btn  btn-primary text-white  w-full border-none">
+                      <img
+                        src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-1.png"
+                        alt=""
+                      />
+                      Dashboard
+                    </li>
+                  </NavLink>
                   <NavLink to="/Dashboard/AddContest">
                     <li className="btn   btn-primary text-white  w-full">
                       <img
@@ -114,28 +154,18 @@ const Dashboard = () => {
                       My Created Contest
                     </li>
                   </NavLink>
-                  <NavLink to="/Dashboard/ContestSubmittedPage ">
+                  <NavLink to="/Dashboard/Submitted">
                     <li className="btn   btn-primary text-white  w-full">
                       <img
                         src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
                         alt=""
                       />
-                      Contest Submitted
+                      Contest Submitted Page
                     </li>
                   </NavLink>
                 </>
               ) : (
-                <>
-                  <NavLink to="/Dashboard">
-                    <li className="btn  btn-primary text-white  w-full border-none">
-                      <img
-                        src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-1.png"
-                        alt=""
-                      />
-                      Dashboard
-                    </li>
-                  </NavLink>
-                </>
+                <>hi</>
               )}
             </div>
           </div>

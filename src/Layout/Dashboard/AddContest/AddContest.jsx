@@ -151,7 +151,7 @@ const AddContest = () => {
             {...register("contestType", {
               required: "Contest Type is required",
             })}
-            className="w-full px-4 py-3 rounded-md dark-border-gray-700 dark-bg-gray-900 dark-text-gray-100 focus:dark-border-violet-400"
+            className="w-full px-4 py-3 rounded-md text-black"
           >
             <option value="Business Contest">Business Contest</option>
             <option value="Medical Contest">Medical Contest</option>

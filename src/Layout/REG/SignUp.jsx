@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProvider";
+import axios from "axios";
 function validatePassword(password) {
   if (
     password.length < 6 ||
@@ -38,7 +39,7 @@ const SignUp = () => {
     const photoURL = form.photoURL.value;
     const email = form.email.value;
     console.log(displayName);
-     
+    const role = "user";
 
     createUser(email, password)
       .then((result) => {
@@ -46,13 +47,13 @@ const SignUp = () => {
         result.user.photoURL = photoURL;
         const uId = result.user.uid;
         console.log(uId);
-        
+
         const user = {
           uid: uId,
           email,
           photoURL,
           displayName,
-         
+          role,
         };
         fetch(" http://localhost:5000/user", {
           method: "POST",
@@ -65,6 +66,20 @@ const SignUp = () => {
           .then((data) => {
             console.log(data);
             showSuccessAlert();
+
+            const user = { email };
+            axios
+              .post(" http://localhost:5000/jwt", user, { withCredentials: true })
+              .then((response) => {
+                if (response.data.success) {
+                  navigate(location?.state ? location.state : "/");
+                }
+              })
+              .catch((error) => {
+                console.log("API request error:", error);
+              });
+
+
             navigate(location?.state ? location.state : "/");
           })
           .catch((error) => {
@@ -108,16 +123,21 @@ const SignUp = () => {
   };
 
   return (
-    <div style={{
-        backgroundImage: "url(https://pixner.net/egamlio/main/assets/images/login-reg-bg.png)",
-      }} className=" py-6">
+    <div
+      style={{
+        backgroundImage:
+          "url(https://pixner.net/egamlio/main/assets/images/login-reg-bg.png)",
+      }}
+      className=" py-6"
+    >
       <Helmet>
         <title>ContestHub || Sign Up page</title>
       </Helmet>
-      <Link to="/"> 
-      <div className="w-52 mx-auto py-1">
-        <img src="./logo.png" alt="" />
-      </div></Link>
+      <Link to="/">
+        <div className="w-52 mx-auto py-1">
+          <img src="./logo.png" alt="" />
+        </div>
+      </Link>
       <div className="lg:w-1/2 w-full mx-auto max-w-md p-8 space-y-3 rounded-xl border my-5 bg-[#090539]">
         <h1 className="text-2xl font-bold text-center">Sign Up</h1>
         <form onSubmit={handleSignUp} className="space-y-6">
