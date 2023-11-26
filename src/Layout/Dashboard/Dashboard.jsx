@@ -47,8 +47,8 @@ const Dashboard = () => {
   // const [isAdmin] = useAdmin();
  
 
-  const isAdmin = true;
-  const isControl = false;
+  const isAdmin = false;
+  const isControl = true;
   return (
     <div className="bg-[#090539]">
       <Header />

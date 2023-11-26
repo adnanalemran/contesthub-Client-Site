@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import "./addcontest.css";
 import { AuthContext } from "../../../providers/AuthProvider";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
 
 const AddContest = () => {
   const { user } = useContext(AuthContext);
   const email = user?.email;
+  const axiosSecure = useAxiosSecure();
 
   const {
     register,
@@ -15,19 +18,29 @@ const AddContest = () => {
     formState: { errors },
   } = useForm();
 
+  const { data: contests = [], refetch } = useQuery({
+    queryKey: ["contest"],
+    queryFn: async () => {
+      try {
+        const res = await axiosSecure.get("/contest");
+        return res.data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+  });
+
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("http://localhost:5000/contest", {
-        method: "POST",
+      const res = await axiosSecure.post("/contest", data, {
         headers: {
-          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("access-token")}`,
         },
-        body: JSON.stringify(data),
       });
 
-      const responseData = await response.json();
-
-      console.log(responseData);
+      // Assuming that the response contains a success message or relevant data
+      console.log(res.data);
 
       // Show success message
       Swal.fire({
@@ -38,6 +51,10 @@ const AddContest = () => {
         timer: 1500,
       });
 
+      // Refetch the contests data after submission
+      refetch();
+      
+      // Reset form values
       setValue("contestName", "");
       setValue("image", "");
       setValue("contestDescription", "");

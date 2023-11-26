@@ -7,7 +7,9 @@ const ManageUser = () => {
   const { data: user = [], refetch } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/user");
+      const res = await axiosSecure.get("/user",{
+        
+      });
       return res.data;
     },
   });
@@ -105,11 +107,11 @@ const ManageUser = () => {
                 <td className="capitalize">{user?.role}</td>
                 <td>
                   <form onSubmit={(e) => handleRoleChange(e, user)}>
-                    <div className="space-y-1 text-sm flex gap-2">
+                    <div className=" text-sm flex gap-2">
                       <select
                         name="role"
                         defaultValue={user?.role}
-                        className="px-4   rounded-md text-black"
+                        className="px-4 py-0  rounded-md text-black"
                       >
                         <option value="admin">Admin</option>
                         <option value="controller">Controller</option>
@@ -117,7 +119,7 @@ const ManageUser = () => {
                       </select>
                       <button
                         type="submit"
-                        className="btn btn-primary btn-sm p-1"
+                        className="btn btn-primary "
                       >
                         Action
                       </button>

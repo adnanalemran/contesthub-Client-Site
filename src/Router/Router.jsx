@@ -12,6 +12,7 @@ import MyCreatedContest from "../Layout/Dashboard/MyCreatedContest/MyCreatedCont
 import ContestDetails from "../Page/ContestDetails/ContestDetails";
 import PrivateRoute from "./PrivateRoute";
 import ManageUser from "../Layout/Dashboard/ManageUser/ManageUser";
+import ManageContest from "../Layout/Dashboard/ManageContest/ManageContest";
 
 const router = createBrowserRouter([
   {
@@ -69,7 +70,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/Dashboard/ManageContest",
-        element: <ManageUser />,
+        element: <ManageContest />,
       },
 
       //controller routes

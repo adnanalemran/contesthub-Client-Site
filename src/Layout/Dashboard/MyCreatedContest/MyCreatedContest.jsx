@@ -11,24 +11,17 @@ const MyCreatedContest = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
-
-
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/filtered-added-contest?email=${email}`,{withCredentials:true})
+      .get(`http://localhost:5000/filtered-added-contest?email=${email}`, {
+        withCredentials: true,
+      })
       .then((response) => {
         setCreatorContests(response.data);
-       
+
         setLoading(false);
       });
   }, [email]);
-
-
-
-
-
-  
 
   return (
     <div className="w-11/12 mx-auto max-w-4xl p-8 space-y-3 rounded-xl m-5">
@@ -54,8 +47,12 @@ const MyCreatedContest = () => {
           <tbody>
             {creatorContests.map((contest) => (
               <tr key={contest.id}>
-                <td className="border dark-border-gray-700 p-2">{contest.contestName}</td>
-                <td className="border dark-border-gray-700 p-2">{contest.status}</td>
+                <td className="border dark-border-gray-700 p-2">
+                  {contest.contestName}
+                </td>
+                <td className="border dark-border-gray-700 p-2">
+                  {contest.status}
+                </td>
                 <td className="border dark-border-gray-700 p-2">
                   {contest.status === "pending" && (
                     <>
@@ -68,10 +65,15 @@ const MyCreatedContest = () => {
                   )}
                   {contest.status === "accepted" && (
                     <>
-                      <Link to={`/contest-submissions/${contest.id}`} className="mr-2">
+                      <Link
+                        to={`/contest-submissions/${contest.id}`}
+                        className="mr-2"
+                      >
                         See Submissions
                       </Link>
-                      <span className="text-gray-500">Edit/Delete Disabled</span>
+                      <span className="text-gray-500">
+                        Edit/Delete Disabled
+                      </span>
                     </>
                   )}
                 </td>

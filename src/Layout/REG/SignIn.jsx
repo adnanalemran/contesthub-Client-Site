@@ -49,18 +49,7 @@ const SignIn = () => {
         });
 
         showSuccessAlert();
-
-        const user = { email };
-        axios
-          .post(" http://localhost:5000/jwt", user, { withCredentials: true })
-          .then((response) => {
-            if (response.data.success) {
-              navigate(location?.state ? location.state : "/");
-            }
-          })
-          .catch((error) => {
-            console.log("API request error:", error);
-          });
+ 
       })
 
       .catch((error) => {
