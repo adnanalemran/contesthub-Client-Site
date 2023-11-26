@@ -43,8 +43,9 @@ const Dashboard = () => {
       console.error(error);
     }
   };
-
-  const [isAdmin] = useAdmin();
+  // todo
+  // const [isAdmin] = useAdmin();
+  const isAdmin = true;
   return (
     <div className="bg-[#090539]">
       <Header />
@@ -57,7 +58,7 @@ const Dashboard = () => {
       >
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold py-8 text-left text-white">
-            ADMIN DASHBOARD,
+            User DASHBOARD,
           </h2>
         </div>
       </div>
@@ -85,13 +86,13 @@ const Dashboard = () => {
             <div className=" flex flex-col gap-4">
               {isAdmin ? (
                 <>
-                  <NavLink to="/Dashboard">
+                  <NavLink to="/Dashboard/userHome">
                     <li className="btn  btn-primary text-white  w-full border-none">
                       <img
                         src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-1.png"
                         alt=""
                       />
-                      Dashboard
+                      User Home
                     </li>
                   </NavLink>
 

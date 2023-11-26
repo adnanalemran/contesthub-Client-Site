@@ -4,6 +4,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProvider";
 import axios from "axios";
+import useAxiosPublic from "../../hook/useAxiosPublic";
+const axiosPublic = useAxiosPublic();
 
 const showSuccessAlert = () => {
   Swal.fire({
@@ -36,26 +38,31 @@ const SignIn = () => {
     console.log(email, password);
     signIn(email, password)
       .then((result) => {
-        const loggedInUser = result.user;
-        console.log(loggedInUser);
-        const user = { email };
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName,
+        };
+
+        axiosPublic.post("/user", userInfo).then((res) => {
+          console.log(res.data);
+          navigate(location?.state ? location.state : "/");
+        });
 
         showSuccessAlert();
 
-      
-        axios
-          .post(" http://localhost:5000/jwt", user, { withCredentials: true })
-          .then((response) => {
-            if(response.data.success){
-              navigate(location?.state ? location.state : "/");
-            }
-
-          })
-          .catch((error) => {
-            console.log("API request error:", error);
-          });
+        // const user = { email };
+        // axios
+        //   .post(" http://localhost:5000/jwt", user, { withCredentials: true })
+        //   .then((response) => {
+        //     if (response.data.success) {
+        //       navigate(location?.state ? location.state : "/");
+        //     }
+        //   })
+        //   .catch((error) => {
+        //     console.log("API request error:", error);
+        //   });
       })
- 
+
       .catch((error) => {
         console.log(error);
         if (error.code === "auth/invalid-login-credentials") {
@@ -66,30 +73,38 @@ const SignIn = () => {
       });
   };
 
-  
+  const handleGoogleSignIn = () => {
+    googleSignIn().then((result) => {
+      console.log(result.user);
+      const userInfo = {
+        email: result.user?.email,
+        name: result.user?.displayName,
+      };
 
-  const HandleGoogleLogin = () => {
-    googleSignIn()
-      .then((result) => {
-        const loggedInUser = result.user;
-        console.log(loggedInUser);
-        const user = { email: loggedInUser.email };
-
-        showSuccessAlert();
- 
-        axios
-          .post(" http://localhost:5000/jwt", user, { withCredentials: true })
-          .then((response) => {
-            if(response.data.success){
-              navigate(location?.state ? location.state : "/");
-            }
-          })
-        navigate(location?.state?.from ? location.state.from : "/");
+      const user = {
+        uid: result.user?.uId,
+        email: result.user?.email,
+        photoURL: result.user?.photoURL,
+        displayName: result.user?.displayName,
+      };
+      fetch(" http://localhost:5000/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
       })
-      .catch((error) => {
-        console.log(error);
-        showErrorAlert(error);
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          showSuccessAlert();
+          navigate(location?.state ? location.state : "/");
+        })
+        .catch((error) => {
+          console.log(error);
+          showErrorAlert(error.message);
+        });
+    });
   };
   return (
     <div
@@ -143,7 +158,7 @@ const SignIn = () => {
         </div>
         <div className="flex justify-center space-x-4">
           <button
-            onClick={HandleGoogleLogin}
+            onClick={handleGoogleSignIn}
             aria-label="Log in with Google"
             className="p-3 w-full rounded-sm flex align-middle justify-center   btn  gap-2"
           >

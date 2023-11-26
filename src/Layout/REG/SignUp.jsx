@@ -38,7 +38,7 @@ const SignUp = () => {
     const photoURL = form.photoURL.value;
     const email = form.email.value;
     console.log(displayName);
-    const userOrderCount = 0;
+     
 
     createUser(email, password)
       .then((result) => {
@@ -52,8 +52,7 @@ const SignUp = () => {
           email,
           photoURL,
           displayName,
-          password,
-          userOrderCount,
+         
         };
         fetch(" http://localhost:5000/user", {
           method: "POST",

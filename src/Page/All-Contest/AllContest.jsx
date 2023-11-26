@@ -39,7 +39,7 @@ const SkeletonLoader = () => {
 const AllContest = () => {
   const [contest, setContest] = useState([]);
   const { count } = useLoaderData();
-  const [itemsPerPage, setItemsPerPage] = useState(9);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const numberOfPages = parseInt(Math.ceil(count / itemsPerPage));
   const [currentPage, setCurrentPage] = useState(0);
 
