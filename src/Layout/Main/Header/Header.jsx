@@ -86,37 +86,7 @@ const Header = () => {
               {user ? (
                 <>
                   <div className="flex items-center justify-center">
-                    {/* <ul className="menu menu-horizontal   ">
-                      <li tabIndex={0}>
-                        <details>
-                          <summary>
-                            <label
-                              tabIndex={}
-                              className="btn btn-ghost  btn-circle avatar"
-                            >
-                              <div className="w-10 rounded-full">
-                                <img src={displayPhotoURL} alt={displayName} />
-                              </div>
-                            </label>
-                            <p className="hidden md:grid">{displayName}</p>
-                          </summary>
-
-                          <ul className="p-2 w-48 bg-gray-950">
-                            <li>
-                              <Link to="/my-added-product">Dashboard</Link>
-                            </li>
-                            <li>
-                              <Link to="/add-food-item">Add a Food Item</Link>
-                            </li>
-                            <li>
-                              <Link to="/my-order-food-item">
-                                My Order Food Item
-                              </Link>
-                            </li>
-                          </ul>
-                        </details>
-                      </li>
-                    </ul> */}
+                    
                     <div className="dropdown p-4 cursor-pointer  ">
                       <label tabIndex={0} className="flex   backdrop: ">
                         <div className="avatar">

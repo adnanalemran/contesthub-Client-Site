@@ -1,33 +1,48 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";  // Assuming you are using React Router for navigation
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
- 
+import axios from "axios";
 
 const MyCreatedContest = () => {
   const { user } = useContext(AuthContext);
   const email = user?.email;
 
   const [creatorContests, setCreatorContests] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+
 
   useEffect(() => {
-    // Fetch creator's contests from the backend API
-    // Replace the API endpoint with your actual endpoint
-    fetch(`https://your-backend-url/getCreatorContests?email=${email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCreatorContests(data);
-      })
-      .catch((error) => {
-        console.error(error);
+    axios
+      .get(`http://localhost:5000/filtered-added-contest?email=${email}`,{withCredentials:true})
+      .then((response) => {
+        setCreatorContests(response.data);
+       
+        setLoading(false);
       });
   }, [email]);
 
+
+
+
+
+  
+
   return (
-    <div className="w-11/12 mx-auto max-w-4xl p-8 space-y-3 rounded-xl m-5  ">
+    <div className="w-11/12 mx-auto max-w-4xl p-8 space-y-3 rounded-xl m-5">
       <h1 className="text-2xl font-bold text-center">My Created Contests</h1>
-      {creatorContests.length === 0 ? (
+
+      {loading && <p className="text-center">Loading...</p>}
+
+      {error && <p className="text-center text-red-500">{error}</p>}
+
+      {!loading && creatorContests.length === 0 && (
         <p className="text-center">No contests created yet.</p>
-      ) : (
+      )}
+
+      {!loading && creatorContests.length > 0 && (
         <table className="w-full table-auto">
           <thead>
             <tr>
@@ -47,12 +62,8 @@ const MyCreatedContest = () => {
                       <Link to={`/edit-contest/${contest.id}`} className="mr-2">
                         Edit
                       </Link>
-                      <button
-                        // onClick={() => handleDeleteContest(contest.id)}
-                        className="text-red-600"
-                      >
-                        Delete
-                      </button>
+                      {/* Uncomment the line below when you implement delete functionality */}
+                      {/* <button onClick={() => handleDeleteContest(contest.id)} className="text-red-600">Delete</button> */}
                     </>
                   )}
                   {contest.status === "accepted" && (

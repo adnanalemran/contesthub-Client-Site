@@ -9,6 +9,8 @@ import Dashboard from "../Layout/Dashboard/Dashboard";
 import Analysis from "../Layout/Dashboard/Analysis/Analysis";
 import AddContest from "../Layout/Dashboard/AddContest/AddContest";
 import MyCreatedContest from "../Layout/Dashboard/MyCreatedContest/MyCreatedContest";
+import ContestDetails from "../Page/ContestDetails/ContestDetails";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,23 @@ const router = createBrowserRouter([
       {
         path: "/All-Contest",
         element: <AllContest />,
+        loader: () => fetch("http://localhost:5000/contestCount"),
+      },
+
+      {
+        path: "/contest/:id",
+        element: (
+          <PrivateRoute>
+            <ContestDetails />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/contest/registration/:id",
+        element: (
+          // <OrderPage />
+          <div className="we"></div>
+        ),
       },
     ],
   },
