@@ -7,9 +7,7 @@ const ManageContest = () => {
   const { data: contests = [], refetch } = useQuery({
     queryKey: ["contest"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/contest",{
-        
-      });
+      const res = await axiosSecure.get("/contest", {});
       return res.data;
     },
   });
@@ -38,6 +36,23 @@ const ManageContest = () => {
       }
     });
   };
+
+  const handleMakeApprove = (contest) => {
+    axiosSecure.patch(`/contest/status/${contest._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `${contest.name} is an approved Now!`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  };
+
   return (
     <div>
       <div className="text-3xl py-2">
@@ -52,7 +67,7 @@ const ManageContest = () => {
             <tr>
               <th>No</th>
               <th>Name</th>
-              <th>Description</th>
+
               <th>Type</th>
               <th>Deadline</th>
               <th>Action</th>
@@ -74,22 +89,36 @@ const ManageContest = () => {
                     </div>
                   </div>
                 </td>
-                <td>{contest?.contestDescription}</td>
+
                 <td>{contest?.contestType}</td>
                 <td>{contest?.contestDeadline}</td>
                 <td>
-                 <div className="flex gap-4">  <button
-                    onClick={() => handleDeleteContest(contest)}
-                    className="btn btn-info"
-                  >
-                    Confirm
-                  </button>
-                  <button
-                    onClick={() => handleDeleteContest(contest)}
-                    className="btn btn-error"
-                  >
-                    Delete
-                  </button></div>
+                  <div className="flex gap-4">
+                     
+                  
+                    {contest.status === "Approve" ? (
+                      "Approved"
+                    ) : (
+                      <button
+                        onClick={() => handleMakeApprove(contest)}
+                        className="btn btn-sm btn-info "
+                      >
+                        Approve
+                      </button>
+                    )}
+                      <button
+                      onClick={() => handleDeleteContest(contest)}
+                      className="btn btn-warning btn-sm"
+                    >
+                      Update
+                    </button>
+                    <button
+                      onClick={() => handleDeleteContest(contest)}
+                      className="btn btn-error btn-sm"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

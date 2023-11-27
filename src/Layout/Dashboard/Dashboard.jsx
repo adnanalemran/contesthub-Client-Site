@@ -96,15 +96,7 @@ const Dashboard = () => {
             <div className=" flex flex-col gap-4">
               {isAdmin ? (
                 <>
-                  <NavLink to="/Dashboard/adminHome">
-                    <li className="btn  btn-primary text-white  w-full border-none">
-                      <img
-                        src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-1.png"
-                        alt=""
-                      />
-                      Admin Home
-                    </li>
-                  </NavLink>
+              
 
                   <NavLink to="/Dashboard/ManageUser">
                     <li className="btn   btn-primary text-white  w-full">
