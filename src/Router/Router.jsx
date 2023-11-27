@@ -16,6 +16,7 @@ import ManageContest from "../Layout/Dashboard/ManageContest/ManageContest";
 import UpdateContest from "../Layout/Dashboard/UpdateContest/UpdateContest";
 import Payment from "../Layout/Dashboard/Payment/Payment";
 import Submitted from "../Layout/Dashboard/Submitted/Submitted";
+import Registered from "../Layout/Dashboard/Registered/Registered";
 
 const router = createBrowserRouter([
   {
@@ -42,10 +43,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/contest/registration/:id",
-        element: (
-          
-          <Payment/>
-        ),
+        element: <Payment />,
       },
     ],
   },
@@ -85,9 +83,13 @@ const router = createBrowserRouter([
         path: "/Dashboard/MyCreatedContest",
         element: <MyCreatedContest />,
       },
-       {
+      {
         path: "/Dashboard/Submitted",
         element: <Submitted />,
+      },
+      {
+        path: "/Dashboard/Registered",
+        element: <Registered />,
       },
       {
         path: "/Dashboard/contest/update/:id",

@@ -160,7 +160,7 @@ const Dashboard = () => {
                  My Profile
                   </li>
                 </NavLink>
-                <NavLink to="/Dashboard/Submitted">
+                <NavLink to="/Dashboard/Registered">
                   <li className="btn   btn-primary text-white  w-full">
                     <img
                       src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"

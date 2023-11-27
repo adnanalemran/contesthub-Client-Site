@@ -14,6 +14,7 @@ const CheckoutForm = () => {
   const { id } = useParams();
   const [contest, setContest] = useState({});
   const [clientSecret, setClientSecret] = useState("");
+  const [transactionId, setTransactionId] = useState("");
   useEffect(() => {
     if (id) {
       fetch(`http://localhost:5000/contest/${id}`)
@@ -67,12 +68,37 @@ const CheckoutForm = () => {
           },
         },
       });
-      if(confirmError){
-        console.log("confirmError")
+    if (confirmError) {
+      console.log("confirmError");
+    } else {
+      console.log("Payment Intent ", paymentIntent);
+      if (paymentIntent.status === "succeeded") {
+        setTransactionId(paymentIntent.id);
+        
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: ` payment and Registration !`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+
+        // payment save database
+        const payment = {
+          email: user.email,
+          price: price,
+          date: new Date(),
+          contestId: contest?._id,
+          contestName: contest?.contestName,
+          contestImage: contest?.image,
+          transactionId: paymentIntent.id,
+        };
+        const res = await axiosSecure.post("payments", payment);
+        console.log("payment save ",res);
+        
       }
-      else{
-        console.log("Payment Intent ",paymentIntent)
-      }
+    }
   };
 
   return (
@@ -101,6 +127,9 @@ const CheckoutForm = () => {
         Pay
       </button>
       <p className="text-red-500">{error}</p>
+      {transactionId && (
+        <p className="text-green-400"> Your Transaction Id: {transactionId}</p>
+      )}
     </form>
   );
 };
