@@ -59,14 +59,7 @@ const Header = () => {
           All Contest
         </NavLink>
       </li>
-      <li className="flex">
-        <NavLink
-          to="/about"
-          className="flex items-center px-4 mb-1 border-b-2 hover:text-[#0ECDB9] hover:border-[#0ECDB9]"
-        >
-          About
-        </NavLink>
-      </li>
+       
     </>
   );
 

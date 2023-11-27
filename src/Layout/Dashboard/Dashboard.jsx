@@ -6,6 +6,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Header from "../Main/Header/Header";
 import "./style.css";
 import useAdmin from "../../hook/useAdmin";
+import useController from "../../hook/useController";
 
 const showSuccessAlert = () => {
   Swal.fire({
@@ -43,12 +44,11 @@ const Dashboard = () => {
       console.error(error);
     }
   };
-  // todo
-  // const [isAdmin] = useAdmin();
- 
 
-  const isAdmin = false;
-  const isControl = true;
+  const [isAdmin] = useAdmin();
+
+  const [isControl] = useController();
+
   return (
     <div className="bg-[#090539]">
       <Header />
@@ -164,9 +164,39 @@ const Dashboard = () => {
                     </li>
                   </NavLink>
                 </>
-              ) : (
-                <>hi</>
-              )}
+              ) : ( <>
+
+              
+                <NavLink to="/Dashboard/Submitted">
+                  <li className="btn   btn-primary text-white  w-full">
+                    <img
+                      src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-3.png"
+                      alt=""
+                    />
+                 My Profile
+                  </li>
+                </NavLink>
+                <NavLink to="/Dashboard/Submitted">
+                  <li className="btn   btn-primary text-white  w-full">
+                    <img
+                      src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
+                      alt=""
+                    />
+                    My Registered Contest
+                  </li>
+                </NavLink>
+                <NavLink to="/Dashboard/Submitted">
+                  <li className="btn   btn-primary text-white  w-full">
+                    <img
+                      src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-1.png"
+                      alt=""
+                    />
+                     My Winning Contest Page
+                  </li>
+                </NavLink>
+
+                
+              </>)}
             </div>
           </div>
         </div>

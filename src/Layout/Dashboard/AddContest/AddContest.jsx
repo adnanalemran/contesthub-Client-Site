@@ -10,7 +10,7 @@ const AddContest = () => {
   const { user } = useContext(AuthContext);
   const email = user?.email;
   const axiosSecure = useAxiosSecure();
-
+  const status = "pending";
   const {
     register,
     handleSubmit,
@@ -53,7 +53,7 @@ const AddContest = () => {
 
       // Refetch the contests data after submission
       refetch();
-      
+
       // Reset form values
       setValue("contestName", "");
       setValue("image", "");
@@ -194,9 +194,10 @@ const AddContest = () => {
           )}
         </div>
 
-
         <div className="space-y-1 text-sm hidden">
-          <label className="block dark-text-gray-400">Contest Deadline</label>
+          <label className="block dark-text-gray-400">
+            creator Contest email
+          </label>
           <input
             type="email"
             {...register("email", {
@@ -205,7 +206,17 @@ const AddContest = () => {
             value={email}
             className="w-full px-4 py-3 rounded-md dark-border-gray-700 focus:dark-border-violet-400"
           />
-         
+        </div>
+        <div className="space-y-1 text-sm hidden">
+          <label className="block dark-text-gray-400">Contest Deadline</label>
+          <input
+            type="text"
+            {...register("status", {
+              required: "Contest Deadline is required",
+            })}
+            value={status}
+            className="w-full px-4 py-3 rounded-md dark-border-gray-700 focus:dark-border-violet-400"
+          />
         </div>
 
         <button
