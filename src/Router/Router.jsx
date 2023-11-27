@@ -13,6 +13,9 @@ import ContestDetails from "../Page/ContestDetails/ContestDetails";
 import PrivateRoute from "./PrivateRoute";
 import ManageUser from "../Layout/Dashboard/ManageUser/ManageUser";
 import ManageContest from "../Layout/Dashboard/ManageContest/ManageContest";
+import UpdateContest from "../Layout/Dashboard/UpdateContest/UpdateContest";
+import Payment from "../Layout/Dashboard/Payment/Payment";
+import Submitted from "../Layout/Dashboard/Submitted/Submitted";
 
 const router = createBrowserRouter([
   {
@@ -40,8 +43,8 @@ const router = createBrowserRouter([
       {
         path: "/contest/registration/:id",
         element: (
-          // <OrderPage />
-          <div className="we"></div>
+          
+          <Payment/>
         ),
       },
     ],
@@ -82,9 +85,23 @@ const router = createBrowserRouter([
         path: "/Dashboard/MyCreatedContest",
         element: <MyCreatedContest />,
       },
+       {
+        path: "/Dashboard/Submitted",
+        element: <Submitted />,
+      },
       {
-        path: "/Dashboard/ContestSubmittedPage",
-        element: <MyCreatedContest />,
+        path: "/Dashboard/contest/update/:id",
+        element: <UpdateContest />,
+        loader: async ({ params }) => {
+          const response = await fetch(
+            `http://localhost:5000/contest/${params.id}`
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch food data for updating");
+          }
+          const data = await response.json();
+          return data;
+        },
       },
     ],
   },

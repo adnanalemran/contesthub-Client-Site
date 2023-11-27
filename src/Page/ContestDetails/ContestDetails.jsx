@@ -40,7 +40,7 @@ const ContestDetails = () => {
           <p>● Description of Contest : {contest?.contestDescription}</p>
           <div className="card-actions justify-end">
             <Link to={`/contest/registration/${contest?._id}`}>
-              <button className="btn btn-warning">Registration Now </button>
+              <button className="btn btn-warning">Registration </button>
             </Link>
           </div>
         </div>

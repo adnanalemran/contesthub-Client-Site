@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 // import { FaTrashAlt, Fauser } from "react-icons/fa";
 const ManageContest = () => {
   const axiosSecure = useAxiosSecure();
@@ -94,8 +95,6 @@ const ManageContest = () => {
                 <td>{contest?.contestDeadline}</td>
                 <td>
                   <div className="flex gap-4">
-                     
-                  
                     {contest.status === "Approve" ? (
                       "Approved"
                     ) : (
@@ -106,12 +105,10 @@ const ManageContest = () => {
                         Approve
                       </button>
                     )}
-                      <button
-                      onClick={() => handleDeleteContest(contest)}
-                      className="btn btn-warning btn-sm"
-                    >
-                      Update
-                    </button>
+
+                    <Link to={`/Dashboard/contest/update/${contest?._id}`}>
+                      <button className="btn btn-warning btn-sm">Update</button>
+                    </Link>
                     <button
                       onClick={() => handleDeleteContest(contest)}
                       className="btn btn-error btn-sm"

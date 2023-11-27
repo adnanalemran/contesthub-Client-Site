@@ -65,7 +65,6 @@ const AllContest = () => {
     }
   };
   const [searchResults, setSearchResults] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (text) => {
     fetch(`http://localhost:5000/contest/search/${text}`)
@@ -78,8 +77,8 @@ const AllContest = () => {
       <Helmet>
         <title>Contest || All contest page</title>
       </Helmet>
-<p className="py-2 font-bold text-xl">Find contest type or tags</p>
-<hr />
+      <p className="py-2 font-bold text-xl">Find contest type or tags</p>
+      <hr />
       <div className="w-full py-8">
         <ul className="flex gap-4">
           <li className="btn">
@@ -115,16 +114,20 @@ const AllContest = () => {
                 </div>
               </figure>
               <h2 className="text-xl font-semibold text-center pt-4">
-                {contest?.name}
+                {contest?.contestName}
               </h2>
               <div className="card-body p-4">
                 <p>
-                  Category: {contest?.Category} <br />
-                  Quantity: {contest?.Quantity} <br />
+                  Category: {contest?.contestType} <br />
+                  Attempted count: {contest?.Quantity} <br />
+                  Description: {contest?.contestDescription.slice(
+                    0,
+                    20
+                  )}... <br />
                 </p>
-                <p className="text-lg font-bold">BDT: {contest?.price} Tk</p>
+
                 <div className="card-actions flex justify-end grid-cols-3">
-                  <Link to={`/food/${contest?._id}`}>
+                  <Link to={`/contest/${contest?._id}`}>
                     <button className="text-white bg-blue-700 hover-bg-blue-800 focus-ring-4 focus-outline-none focus-ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark-bg-blue-600 dark-hover-bg-blue-700 dark-focus-ring-blue-800">
                       Details
                     </button>
@@ -158,7 +161,10 @@ const AllContest = () => {
                 <p>
                   Category: {contest?.contestType} <br />
                   Attempted count: {contest?.Quantity} <br />
-                  Description:  {contest?.contestDescription.slice(0, 20)}... <br />
+                  Description: {contest?.contestDescription.slice(
+                    0,
+                    20
+                  )}... <br />
                 </p>
 
                 <div className="card-actions flex justify-end grid-cols-3">
