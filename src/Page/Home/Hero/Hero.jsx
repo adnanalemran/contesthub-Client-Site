@@ -40,7 +40,7 @@ const Hero = () => {
                   type="text"
                   name="search"
                   className="w-[400px] bg-[#fff0] px-4 "
-                  placeholder="Search contest based on Type/Tag"
+                  placeholder="Search Type/Tag, like: Gaming,Business,Medical, "
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />

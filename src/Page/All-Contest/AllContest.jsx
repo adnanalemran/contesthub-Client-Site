@@ -43,8 +43,6 @@ const AllContest = () => {
   const numberOfPages = parseInt(Math.ceil(count / itemsPerPage));
   const [currentPage, setCurrentPage] = useState(0);
 
-  const [searchResults, setSearchResults] = useState([]);
-
   useEffect(() => {
     fetch(
       `http://localhost:5000/contest?page=${currentPage}&size=${itemsPerPage}`
@@ -66,24 +64,39 @@ const AllContest = () => {
       setCurrentPage(currentPage + 1);
     }
   };
-
+  const [searchResults, setSearchResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const handleSearch = (e) => {
-    e.preventDefault();
-    fetch(`http://localhost:5000/contest/search/${searchQuery}`)
+
+  const handleSearch = (text) => {
+    fetch(`http://localhost:5000/contest/search/${text}`)
       .then((res) => res.json())
       .then((data) => setSearchResults(data))
-      .catch((error) =>
-        console.error("Error searching for food items:", error)
-      );
+      .catch((error) => console.error("Error searching  ", error));
   };
-
   return (
-    <div className="py-28 md:w-[768px] lg:w-[1280px] mx-auto">
+    <div className="pb-28 pt-10 md:w-[768px] lg:w-[1280px] mx-auto">
       <Helmet>
         <title>Contest || All contest page</title>
       </Helmet>
-     
+<p className="py-2 font-bold text-xl">Find contest type or tags</p>
+<hr />
+      <div className="w-full py-8">
+        <ul className="flex gap-4">
+          <li className="btn">
+            <button onClick={() => handleSearch("Gaming")}>Gaming</button>
+          </li>
+          <li className="btn">
+            <button onClick={() => handleSearch("Business")}>Business</button>
+          </li>
+          <li className="btn">
+            <button onClick={() => handleSearch("Medical")}>Medical</button>
+          </li>
+          <li className="btn">
+            <button onClick={() => handleSearch("Article")}>Article</button>
+          </li>
+        </ul>
+      </div>
+
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         {searchResults.length > 0 ? (
           searchResults.map((contest) => (
@@ -145,7 +158,7 @@ const AllContest = () => {
                 <p>
                   Category: {contest?.contestType} <br />
                   Attempted count: {contest?.Quantity} <br />
-                  Description: {contest?.contestDescription} <br />
+                  Description:  {contest?.contestDescription.slice(0, 20)}... <br />
                 </p>
 
                 <div className="card-actions flex justify-end grid-cols-3">

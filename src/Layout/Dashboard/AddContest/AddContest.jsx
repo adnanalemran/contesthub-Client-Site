@@ -170,9 +170,9 @@ const AddContest = () => {
             })}
             className="w-full px-4 py-3 rounded-md text-black"
           >
-            <option value="Business Contest">Business Contest</option>
-            <option value="Medical Contest">Medical Contest</option>
-            <option value="Article Writing">Article Writing</option>
+            <option value="Business">Business Contest</option>
+            <option value="Medical">Medical Contest</option>
+            <option value="Article">Article Writing</option>
             <option value="Gaming">Gaming</option>
           </select>
           {errors.contestType && (
