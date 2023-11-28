@@ -35,23 +35,23 @@ const Registered = () => {
         <table>
           <thead>
             <tr>
-              <th>Email</th>
-              <th>Price</th>
-              <th>Date</th>
-              <th>Contest ID</th>
-              <th>Contest Name</th>
-              <th>Transaction ID</th>
+              <th  className="border dark-border-gray-700 p-2">Contest Name</th>
+              <th  className="border dark-border-gray-700 p-2">Price</th>
+              <th  className="border dark-border-gray-700 p-2">Date</th>
+             
+             
+              <th  className="border dark-border-gray-700 p-2">Transaction ID</th>
             </tr>
           </thead>
           <tbody>
             {payments.map((payment) => (
               <tr key={payment._id}>
-                <td>{payment.email}</td>
-                <td>{payment.price}</td>
-                <td>{new Date(payment.date).toLocaleString()}</td>
-                <td>{payment.contestId}</td>
-                <td>{payment.contestName}</td>
-                <td>{payment.transactionId}</td>
+                   <td  className="border dark-border-gray-700 p-2">{payment.contestName}</td>
+                <td  className="border dark-border-gray-700 p-2">{payment.price}</td>
+                <td  className="border dark-border-gray-700 p-2">{new Date(payment.date).toLocaleString()}</td>
+       
+             
+                <td  className="border dark-border-gray-700 p-2">{payment.transactionId}</td>
               </tr>
             ))}
           </tbody>

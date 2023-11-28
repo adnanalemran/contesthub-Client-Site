@@ -26,6 +26,9 @@ const CheckoutForm = () => {
     }
   }, [id]);
 
+  const newOrderCount = parseInt(contest?.orderCount) + 1;
+  console.log("New order count", newOrderCount);
+
   const price = contest?.contestPrice;
   useEffect(() => {
     axiosSecure.post("/create-payment-intent", { price }).then((res) => {
@@ -74,15 +77,24 @@ const CheckoutForm = () => {
       console.log("Payment Intent ", paymentIntent);
       if (paymentIntent.status === "succeeded") {
         setTransactionId(paymentIntent.id);
-        
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: ` payment and Registration !`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
 
+        axiosSecure
+          .patch(`/contest/${contest._id}`, {orderCount:newOrderCount})
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.modifiedCount > 0) {
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `payment and Registration !`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
 
         // payment save database
         const payment = {
@@ -95,8 +107,7 @@ const CheckoutForm = () => {
           transactionId: paymentIntent.id,
         };
         const res = await axiosSecure.post("payments", payment);
-        console.log("payment save ",res);
-        
+        console.log("payment save ", res);
       }
     }
   };
