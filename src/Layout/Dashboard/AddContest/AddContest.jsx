@@ -30,7 +30,7 @@ const AddContest = () => {
   const axiosSecure = useAxiosSecure();
   const status = "pending";
   const orderCount = 0;
-  const Winner = "";
+  const winner = 'running';
   const {
     register,
     handleSubmit,
@@ -96,8 +96,6 @@ const AddContest = () => {
       setValue("taskSubmissionInstruction", "");
       setValue("contestType", "");
       setValue("contestDeadline", "");
-      setValue("orderCount", "0");
-      setValue("winner ", " ");
     } catch (error) {
       console.error(error);
       // Handle error and show error message
@@ -251,6 +249,28 @@ const AddContest = () => {
               required: "Contest Deadline is required",
             })}
             value={status}
+            className="w-full px-4 py-3 rounded-md dark-border-gray-700 focus:dark-border-violet-400"
+          />
+        </div>
+        <div className="space-y-1 text-sm hidden">
+          <label className="block dark-text-gray-400">Contest Deadline</label>
+          <input
+            type="number"
+            {...register("orderCount", {
+              required: "Contest Deadline is required",
+            })}
+            value={orderCount}
+            className="w-full px-4 py-3 rounded-md dark-border-gray-700 focus:dark-border-violet-400"
+          />
+        </div>
+        <div className="space-y-1 text-sm hidden">
+          <label className="block dark-text-gray-400">Contest Deadline</label>
+          <input
+            type="text"
+            {...register("winner", {
+              required: "Contest Deadline is required",
+            })}
+            value={winner}
             className="w-full px-4 py-3 rounded-md dark-border-gray-700 focus:dark-border-violet-400"
           />
         </div>
