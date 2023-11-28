@@ -32,8 +32,8 @@ const Dashboard = () => {
       });
   }, [user?.uid]);
 
-  const displayName = user?.displayName || dbuser?.displayName;
-  const displayPhotoURL = dbuser?.photoURL || user?.photoURL;
+  const displayName = dbuser?.displayName;
+  const displayPhotoURL = dbuser?.photoURL;
 
   const handleSignOut = async () => {
     try {
@@ -60,26 +60,28 @@ const Dashboard = () => {
         }}
       >
         <div className="container mx-auto">
-          <p>Welcome,</p>
-          <h2 className="text-4xl font-bold py-4 lg:py-8 text-left text-white capitalize">
+        <div className="p-8">
+        <p className="pt-8">Welcome,</p>
+          <h2 className="text-4xl font-bold py-4 lg:py-4 text-left text-white capitalize">
             {isAdmin ? (
               <>ADMIN DASHBOARD,</>
             ) : isControl ? (
-              <> Control DASHBOARD,</>
+              <> CONTROLLER DASHBOARD,</>
             ) : (
               <> USER DASHBOARD,</>
             )}
           </h2>
         </div>
+        </div>
       </div>
 
-      <div className="flex w-full container mx-auto  gap-12 ">
-        <div className="w-1/3   sticky top-10">
-          <div className="justify-around p-8 gap-9 text-center rounded-lg lg:-mt-32 bg-[#212472] w-full mx-4 ">
+      <div className="flex flex-col lg:flex-row w-full container mx-auto  gap-5 ">
+        <div className="w-full lg:w-1/3  p-4  sticky top-10">
+          <div className="justify-around p-4 text-center rounded-lg lg:-mt-32 bg-[#212472] w-full mx-auto ">
             <img
               src={displayPhotoURL}
-              alt=""
-              className="  h-44 mx-auto rounded-full aspect-square"
+              alt={displayName}
+              className=" h-44 mx-auto rounded-full aspect-square"
             />
             <div className="space-y-4 text-center divide-y">
               <div className="my-4 space-y-1">
@@ -92,7 +94,7 @@ const Dashboard = () => {
               </button>
             </div>
           </div>
-          <div className="justify-around p-8 gap-9 text-center rounded-lg  my-8 bg-[#212472] w-full mx-4 g ">
+          <div className="justify-around p-8 gap-9 text-center rounded-lg  my-8 bg-[#212472] w-full mx-auto   ">
             <div className=" flex flex-col gap-4">
               {isAdmin ? (
                 <>
@@ -184,7 +186,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="w-2/3 sticky  ">
+        <div className="w-full lg:w-2/3 p-4  sticky top-10  ">
           <div className="w-full justify-around p-8 gap-9 text-center rounded-lg lg:-mt-32 bg-[#212472]  ">
             <Outlet></Outlet>
           </div>

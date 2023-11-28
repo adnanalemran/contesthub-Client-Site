@@ -1,6 +1,12 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, NavLink, Navigate } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../providers/AuthProvider";
 import "./header.css";
@@ -18,9 +24,7 @@ const Header = () => {
   const [dbuser, setDbuser] = useState(null);
   useEffect(() => {
     axios
-      .get(
-        ` http://localhost:5000/user/${user?.uid}`
-      )
+      .get(` http://localhost:5000/user/${user?.uid}`)
       .then((res) => {
         setDbuser(res.data);
       })
@@ -36,7 +40,7 @@ const Header = () => {
     try {
       await logOut();
       showSuccessAlert();
-      <Navigate state={location.pathname} to="/" />
+      <Navigate to="/" state={{ from: location }} replace></Navigate>;
     } catch (error) {
       console.error(error);
     }
@@ -60,7 +64,6 @@ const Header = () => {
           All Contest
         </NavLink>
       </li>
-       
     </>
   );
 
@@ -80,7 +83,6 @@ const Header = () => {
               {user ? (
                 <>
                   <div className="flex items-center justify-center">
-                    
                     <div className="dropdown p-4 cursor-pointer  ">
                       <label tabIndex={0} className="flex   backdrop: ">
                         <div className="avatar">
@@ -96,14 +98,20 @@ const Header = () => {
                         <p className="font-bold text-xl">{displayName}</p>
 
                         <li>
-                          <Link  className="bg-gray-700  p-3" to="/Dashboard">Dashboard</Link>
+                          <Link className="bg-gray-700  p-3" to="/Dashboard">
+                            Dashboard
+                          </Link>
                         </li>
                         <li>
-                          <Link className="bg-red-400 p-3 hover:bg-red-700" onClick={handleSignOut}  >Log Out</Link>
+                          <Link
+                            className="bg-red-400 p-3 hover:bg-red-700"
+                            onClick={handleSignOut}
+                          >
+                            Log Out
+                          </Link>
                         </li>
                       </ul>
                     </div>
-                    
                   </div>
                 </>
               ) : (
@@ -138,6 +146,29 @@ const Header = () => {
               className="menu text-2xl shadow menu-sm dropdown-content right-1 mt-3 z-[5] p-3 gap-4  rounded-box w-52 bg-[#1B1D4D]"
             >
               {menu}
+              {user ? (
+                <>
+                  <li>
+                    <Link className="bg-gray-700  p-3" to="/Dashboard">
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="bg-red-400 p-3 hover:bg-red-700"
+                      onClick={handleSignOut}
+                    >
+                      Log Out
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <Link className="btn bg-[#0ECDB9] border-none" to="/login">
+                    Login
+                  </Link>
+                </>
+              )}
             </ul>
           </div>
         </div>
