@@ -1,16 +1,36 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import "./addcontest.css";
 import { AuthContext } from "../../../providers/AuthProvider";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
+import axios from "axios";
 
 const AddContest = () => {
   const { user } = useContext(AuthContext);
+  const [dbuser, setDbuser] = useState(null);
+  useEffect(() => {
+    axios
+      .get(` http://localhost:5000/user/${user?.uid}`)
+      .then((res) => {
+        setDbuser(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, [user?.uid]);
+
+  const createCount = dbuser?.createCount;
+
+  console.log(createCount);
+
   const email = user?.email;
+
   const axiosSecure = useAxiosSecure();
   const status = "pending";
+  const orderCount = 0;
+  const Winner = "";
   const {
     register,
     handleSubmit,
@@ -42,6 +62,19 @@ const AddContest = () => {
       // Assuming that the response contains a success message or relevant data
       console.log(res.data);
 
+      const newCount = dbuser.createCount;
+      axiosSecure
+        .patch(`/user/Count/${dbuser._id}`, { createCount: newCount })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.modifiedCount > 0) {
+            refetch();
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
       // Show success message
       Swal.fire({
         position: "top",
@@ -63,6 +96,8 @@ const AddContest = () => {
       setValue("taskSubmissionInstruction", "");
       setValue("contestType", "");
       setValue("contestDeadline", "");
+      setValue("orderCount", "0");
+      setValue("winner ", " ");
     } catch (error) {
       console.error(error);
       // Handle error and show error message
@@ -194,7 +229,7 @@ const AddContest = () => {
           )}
         </div>
 
-        <div className="space-y-1 text-sm hidden">
+        <div className="space-y-1 text-sm  hidden">
           <label className="block dark-text-gray-400">
             creator Contest email
           </label>
@@ -207,6 +242,7 @@ const AddContest = () => {
             className="w-full px-4 py-3 rounded-md dark-border-gray-700 focus:dark-border-violet-400"
           />
         </div>
+
         <div className="space-y-1 text-sm hidden">
           <label className="block dark-text-gray-400">Contest Deadline</label>
           <input

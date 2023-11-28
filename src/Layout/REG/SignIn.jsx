@@ -49,7 +49,6 @@ const SignIn = () => {
         });
 
         showSuccessAlert();
- 
       })
 
       .catch((error) => {
@@ -69,12 +68,15 @@ const SignIn = () => {
         email: result.user?.email,
         name: result.user?.displayName,
       };
-
+      const role = "user";
+      const createCount = 0;
       const user = {
         uid: result.user?.uId,
         email: result.user?.email,
         photoURL: result.user?.photoURL,
         displayName: result.user?.displayName,
+        role,
+        createCount,
       };
       fetch(" http://localhost:5000/user", {
         method: "POST",

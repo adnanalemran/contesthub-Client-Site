@@ -1,9 +1,9 @@
+import axios from "axios";
 import React, { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../providers/AuthProvider";
-import axios from "axios";
 function validatePassword(password) {
   if (
     password.length < 6 ||
@@ -40,6 +40,7 @@ const SignUp = () => {
     const email = form.email.value;
     console.log(displayName);
     const role = "user";
+    const createCount =0 ;
 
     createUser(email, password)
       .then((result) => {
@@ -54,6 +55,7 @@ const SignUp = () => {
           photoURL,
           displayName,
           role,
+          createCount
         };
         fetch(" http://localhost:5000/user", {
           method: "POST",

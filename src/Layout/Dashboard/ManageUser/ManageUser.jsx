@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hook/useAxiosSecure";
 import Swal from "sweetalert2";
-// import { FaTrashAlt, Fauser } from "react-icons/fa";
+ 
 const ManageUser = () => {
   const axiosSecure = useAxiosSecure();
   const { data: user = [], refetch } = useQuery({
@@ -61,7 +61,7 @@ const ManageUser = () => {
       })
       .catch((error) => {
         console.error(error);
-        // Handle the error as needed, e.g., show an error message to the user
+        
       });
   };
 

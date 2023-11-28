@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../providers/AuthProvider";
 import "./header.css";
@@ -36,6 +36,7 @@ const Header = () => {
     try {
       await logOut();
       showSuccessAlert();
+      <Navigate state={location.pathname} to="/" />
     } catch (error) {
       console.error(error);
     }

@@ -45,7 +45,7 @@ const Hero = () => {
                   required
                   type="text"
                   name="search"
-                  className="w-[400px] bg-[#fff0] px-4 "
+                  className=" w-[200px] lg:w-[400px] bg-[#fff0] px-4 "
                   placeholder="Search Type/Tag, like: Gaming, Business, Medical"
                   {...register("search")}
                 />
