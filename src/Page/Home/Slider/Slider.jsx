@@ -30,8 +30,8 @@ const Slider = () => {
           slideShadows: true,
         }}
         pagination={true}
-        modules={[EffectCoverflow, Pagination, Autoplay]} // Add Autoplay module
-        autoplay={{ delay: 1000, }} // Set delay in milliseconds
+        modules={[EffectCoverflow, Pagination, Autoplay]}  
+        autoplay={{ delay: 1000, }} 
         loop={true}
         className="mySwiper"
       >

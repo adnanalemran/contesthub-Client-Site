@@ -59,7 +59,7 @@ const AddContest = () => {
         },
       });
 
-      // Assuming that the response contains a success message or relevant data
+       
       console.log(res.data);
 
       const newCount = dbuser.createCount;
