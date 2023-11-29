@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAdmin from "../../hook/useAdmin";
+import useController from "../../hook/useController";
 import { AuthContext } from "../../providers/AuthProvider";
 import Header from "../Main/Header/Header";
 import "./style.css";
-import useAdmin from "../../hook/useAdmin";
-import useController from "../../hook/useController";
 
 const showSuccessAlert = () => {
   Swal.fire({
@@ -23,7 +23,9 @@ const Dashboard = () => {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get(` http://localhost:5000/user/${user?.uid}`)
+      .get(
+        ` https://b8a12-server-side-adnanalemran.vercel.app/user/${user?.uid}`
+      )
       .then((res) => {
         setDbuser(res.data);
       })
@@ -32,8 +34,8 @@ const Dashboard = () => {
       });
   }, [user?.uid]);
 
-  const displayName = dbuser?.displayName;
-  const displayPhotoURL = dbuser?.photoURL;
+  const displayName = user?.displayName || dbuser?.displayName;
+  const displayPhotoURL = user?.photoURL || dbuser?.photoURL;
 
   const handleSignOut = async () => {
     try {
@@ -60,18 +62,18 @@ const Dashboard = () => {
         }}
       >
         <div className="container mx-auto">
-        <div className="p-8">
-        <p className="pt-8">Welcome,</p>
-          <h2 className="text-4xl font-bold py-4 lg:py-4 text-left text-white capitalize">
-            {isAdmin ? (
-              <>ADMIN DASHBOARD,</>
-            ) : isControl ? (
-              <> CONTROLLER DASHBOARD,</>
-            ) : (
-              <> USER DASHBOARD,</>
-            )}
-          </h2>
-        </div>
+          <div className="p-8">
+            <p className="pt-8">Welcome,</p>
+            <h2 className="text-4xl font-bold py-4 lg:py-4 text-left text-white capitalize">
+              {isAdmin ? (
+                <>ADMIN DASHBOARD,</>
+              ) : isControl ? (
+                <> CONTROLLER DASHBOARD,</>
+              ) : (
+                <> USER DASHBOARD,</>
+              )}
+            </h2>
+          </div>
         </div>
       </div>
 
@@ -98,8 +100,6 @@ const Dashboard = () => {
             <div className=" flex flex-col gap-4">
               {isAdmin ? (
                 <>
-              
-
                   <NavLink to="/Dashboard/ManageUser">
                     <li className="btn   btn-primary text-white  w-full">
                       <img
@@ -121,7 +121,6 @@ const Dashboard = () => {
                 </>
               ) : isControl ? (
                 <>
-               
                   <NavLink to="/Dashboard/AddContest">
                     <li className="btn   btn-primary text-white  w-full">
                       <img
@@ -150,39 +149,19 @@ const Dashboard = () => {
                     </li>
                   </NavLink>
                 </>
-              ) : ( <>
-
-              
-                <NavLink to="/Dashboard/Submitted">
-                  <li className="btn   btn-primary text-white  w-full">
-                    <img
-                      src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-3.png"
-                      alt=""
-                    />
-                 My Profile
-                  </li>
-                </NavLink>
-                <NavLink to="/Dashboard/Registered">
-                  <li className="btn   btn-primary text-white  w-full">
-                    <img
-                      src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
-                      alt=""
-                    />
-                    My Registered Contest
-                  </li>
-                </NavLink>
-                <NavLink to="/Dashboard/Submitted">
-                  <li className="btn   btn-primary text-white  w-full">
-                    <img
-                      src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-1.png"
-                      alt=""
-                    />
-                     My Winning Contest Page
-                  </li>
-                </NavLink>
-
-                
-              </>)}
+              ) : (
+                <>
+                  <NavLink to="/Dashboard/Registered">
+                    <li className="btn   btn-primary text-white  w-full">
+                      <img
+                        src="https://pixner.net/egamlio/main/assets/images/icon/dashboard-menu-4.png"
+                        alt=""
+                      />
+                      My Registered Contest
+                    </li>
+                  </NavLink>
+                </>
+              )}
             </div>
           </div>
         </div>

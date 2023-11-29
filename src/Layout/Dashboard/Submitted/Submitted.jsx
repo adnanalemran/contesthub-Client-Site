@@ -28,26 +28,17 @@ const Submitted = () => {
     },
   });
 
-  const handleDeleteContest = (contest) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.delete(`/contest/${contest._id}`).then((res) => {
-          if (res.data.deletedCount > 0) {
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-            refetch();
-          }
+  const handleMakeWin = (contest) => {
+    axiosSecure.patch(`/contest/winning/${contest._id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `  Win  !`,
+          showConfirmButton: false,
+          timer: 1500,
         });
       }
     });
@@ -75,53 +66,46 @@ const Submitted = () => {
               <th className="border dark-border-gray-700 p-2">Contest Name</th>
               <th className="border dark-border-gray-700 p-2">image</th>
               <th className="border dark-border-gray-700 p-2">Type</th>
-              <th className="border dark-border-gray-700 p-2">Contest Deadline</th>
+              <th className="border dark-border-gray-700 p-2">
+                Contest Deadline
+              </th>
               <th className="border dark-border-gray-700 p-2">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {creatorContests.map((contest,index) => (
+            {creatorContests.map((contest, index) => (
               <tr key={contest?._id ?? ""}>
-                   <td className="border dark-border-gray-700 p-2">{index + 1}</td>
+                <td className="border dark-border-gray-700 p-2">{index + 1}</td>
                 <td className="border dark-border-gray-700 p-2">
                   {contest?.contestName}
                 </td>
                 <td className="border dark-border-gray-700 p-2">
-                 <img className="w-12 rounded-sm block mx-auto" src={contest?.image} alt="" /> 
+                  <img
+                    className="w-12 rounded-sm block mx-auto"
+                    src={contest?.image}
+                    alt=""
+                  />
                 </td>
                 <td className="border dark-border-gray-700 p-2">
-                 {contest?.contestType} 
-                </td>
-                 <td className="border dark-border-gray-700 p-2">
-                 {contest?.contestDeadline} 
+                  {contest?.contestType}
                 </td>
                 <td className="border dark-border-gray-700 p-2">
-                  {contest.status === "pending" && (
+                  {contest?.contestDeadline}
+                </td>
+                <td className="border dark-border-gray-700 p-2">
+                  {contest.winner === "running" && (
                     <>
-                      <Link to={`/Dashboard/contest/update/${contest?._id}`}>
-                        <button className="btn btn-warning btn-sm">
-                          Update
-                        </button>
-                      </Link>
                       <button
-                        onClick={() => handleDeleteContest(contest)}
-                        className="btn btn-error btn-sm mx-2"
+                        onClick={() => handleMakeWin(contest)}
+                        className="btn btn-warning btn-sm mx-2"
                       >
-                        Delete
+                        make win
                       </button>
                     </>
                   )}
-                  {contest.status === "accepted" && (
+                  {contest.winner === "winner" && (
                     <>
-                      <Link
-                        to={`/contest-submissions/${contest?._id ?? ""}`}
-                        className="mr-2"
-                      >
-                        See Submissions
-                      </Link>
-                      <span className="text-gray-500">
-                        Edit/Delete Disabled
-                      </span>
+                      <p>winner selected</p>
                     </>
                   )}
                 </td>

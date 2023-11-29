@@ -57,7 +57,7 @@ const SignUp = () => {
           role,
           createCount
         };
-        fetch(" http://localhost:5000/user", {
+        fetch(" https://b8a12-server-side-adnanalemran.vercel.app/user", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const SignUp = () => {
 
             const user = { email };
             axios
-              .post(" http://localhost:5000/jwt", user, { withCredentials: true })
+              .post(" https://b8a12-server-side-adnanalemran.vercel.app/jwt", user, { withCredentials: true })
               .then((response) => {
                 if (response.data.success) {
                   navigate(location?.state ? location.state : "/");

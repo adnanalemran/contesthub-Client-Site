@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../providers/AuthProvider";
-import { useParams } from "react-router-dom";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProvider";
 import CheckoutForm from "./CheckoutForm";
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
@@ -16,7 +16,7 @@ const Payment = () => {
   const [contest, setContest] = useState({});
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:5000/contest/${id}`)
+      fetch(`https://b8a12-server-side-adnanalemran.vercel.app/contest/${id}`)
         .then((response) => response.json())
         .then((data) => setContest(data))
         .catch((error) =>

@@ -101,17 +101,15 @@ const MyCreatedContest = () => {
                       </button>
                     </>
                   )}
-                  {contest.status === "accepted" && (
+                  {contest.status === "Approve" && (
                     <>
                       <Link
-                        to={`/contest-submissions/${contest?._id ?? ""}`}
-                        className="mr-2"
+               to={`/contest/${contest?._id}`}
+                        className="mr-2 btn btn-sm"
                       >
-                        See Submissions
+                        See contest
                       </Link>
-                      <span className="text-gray-500">
-                        Edit/Delete Disabled
-                      </span>
+                      
                     </>
                   )}
                 </td>

@@ -2,9 +2,8 @@ import React, { useContext } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { AuthContext } from "../../providers/AuthProvider";
-import axios from "axios";
 import useAxiosPublic from "../../hook/useAxiosPublic";
+import { AuthContext } from "../../providers/AuthProvider";
 const axiosPublic = useAxiosPublic();
 
 const showSuccessAlert = () => {
@@ -78,7 +77,7 @@ const SignIn = () => {
         role,
         createCount,
       };
-      fetch(" http://localhost:5000/user", {
+      fetch(" https://b8a12-server-side-adnanalemran.vercel.app/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,22 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main/Main";
-import Home from "../Page/Home/Home";
 import AllContest from "../Page/All-Contest/AllContest";
+import Home from "../Page/Home/Home";
 
+import AddContest from "../Layout/Dashboard/AddContest/AddContest";
+import Analysis from "../Layout/Dashboard/Analysis/Analysis";
+import Dashboard from "../Layout/Dashboard/Dashboard";
+import ManageContest from "../Layout/Dashboard/ManageContest/ManageContest";
+import ManageUser from "../Layout/Dashboard/ManageUser/ManageUser";
+import MyCreatedContest from "../Layout/Dashboard/MyCreatedContest/MyCreatedContest";
+import MyWinning from "../Layout/Dashboard/MyWinning/MyWinning";
+import Payment from "../Layout/Dashboard/Payment/Payment";
+import Registered from "../Layout/Dashboard/Registered/Registered";
+import Submitted from "../Layout/Dashboard/Submitted/Submitted";
+import UpdateContest from "../Layout/Dashboard/UpdateContest/UpdateContest";
 import SignIn from "../Layout/REG/SignIn";
 import SignUp from "../Layout/REG/SignUp";
-import Dashboard from "../Layout/Dashboard/Dashboard";
-import Analysis from "../Layout/Dashboard/Analysis/Analysis";
-import AddContest from "../Layout/Dashboard/AddContest/AddContest";
-import MyCreatedContest from "../Layout/Dashboard/MyCreatedContest/MyCreatedContest";
 import ContestDetails from "../Page/ContestDetails/ContestDetails";
 import PrivateRoute from "./PrivateRoute";
-import ManageUser from "../Layout/Dashboard/ManageUser/ManageUser";
-import ManageContest from "../Layout/Dashboard/ManageContest/ManageContest";
-import UpdateContest from "../Layout/Dashboard/UpdateContest/UpdateContest";
-import Payment from "../Layout/Dashboard/Payment/Payment";
-import Submitted from "../Layout/Dashboard/Submitted/Submitted";
-import Registered from "../Layout/Dashboard/Registered/Registered";
 
 const router = createBrowserRouter([
   {
@@ -30,20 +31,20 @@ const router = createBrowserRouter([
       {
         path: "/All-Contest",
         element: <AllContest />,
-        loader: () => fetch("http://localhost:5000/contestCount"),
+        loader: () => fetch("https://b8a12-server-side-adnanalemran.vercel.app/contestCount"),
       },
 
       {
         path: "/contest/:id",
         element: (
-          <PrivateRoute>
+          
             <ContestDetails />
-          </PrivateRoute>
+          
         ),
       },
       {
         path: "/contest/registration/:id",
-        element: <Payment />,
+        element: <PrivateRoute> <Payment /></PrivateRoute>,
       },
     ],
   },
@@ -55,9 +56,11 @@ const router = createBrowserRouter([
     path: "/signUp",
     element: <SignUp />,
   },
+    
   {
     path: "/Dashboard",
-    element: <Dashboard />,
+
+    element:<PrivateRoute> <Dashboard /> </PrivateRoute>,
     children: [
       {
         path: "/Dashboard",
@@ -88,6 +91,10 @@ const router = createBrowserRouter([
         element: <Submitted />,
       },
       {
+        path: "/Dashboard/myWinning",
+        element: <MyWinning />,
+      },
+      {
         path: "/Dashboard/Registered",
         element: <Registered />,
       },
@@ -96,7 +103,7 @@ const router = createBrowserRouter([
         element: <UpdateContest />,
         loader: async ({ params }) => {
           const response = await fetch(
-            `http://localhost:5000/contest/${params.id}`
+            `https://b8a12-server-side-adnanalemran.vercel.app/contest/${params.id}`
           );
           if (!response.ok) {
             throw new Error("Failed to fetch food data for updating");
@@ -107,5 +114,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+
+  
 ]);
 export default router;

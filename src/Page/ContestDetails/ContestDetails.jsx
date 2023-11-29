@@ -8,7 +8,7 @@ const ContestDetails = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:5000/contest/${id}`)
+      fetch(`https://b8a12-server-side-adnanalemran.vercel.app/contest/${id}`)
         .then((response) => response.json())
         .then((data) => setContest(data))
         .catch((error) =>

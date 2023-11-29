@@ -21,7 +21,7 @@ const PayPage = () => {
   const [dbuser, setDbuser] = useState(null);
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/user/${user?.uid}`)
+      .get(`https://b8a12-server-side-adnanalemran.vercel.app/user/${user?.uid}`)
       .then((res) => {
         setDbuser(res.data);
       })
@@ -79,7 +79,7 @@ const PayPage = () => {
         return;
       } else {
         const response = await fetch(
-          `http://localhost:5000/contest/update/${id}`,
+          `https://b8a12-server-side-adnanalemran.vercel.app/contest/update/${id}`,
           {
             method: "PUT",
             headers: {
@@ -101,7 +101,7 @@ const PayPage = () => {
           };
         console.log(formData)
           axios
-            .put(`http://localhost:5000/user/update/${user?.uid}`, formData)
+            .put(`https://b8a12-server-side-adnanalemran.vercel.app/user/update/${user?.uid}`, formData)
             .then((res) => {
               console.log(res.data);
             })
@@ -112,7 +112,7 @@ const PayPage = () => {
 
 
 
-          fetch("http://localhost:5000/pay", {
+          fetch("https://b8a12-server-side-adnanalemran.vercel.app/pay", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -146,7 +146,7 @@ const PayPage = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:5000/contest/${id}`)
+      fetch(`https://b8a12-server-side-adnanalemran.vercel.app/contest/${id}`)
         .then((response) => response.json())
         .then((data) => setContest(data))
         .catch((error) =>

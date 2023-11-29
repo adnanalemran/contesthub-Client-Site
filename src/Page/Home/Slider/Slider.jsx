@@ -11,10 +11,10 @@ const Slider = () => {
     <>
       <div className="pt-32 pb-2">
         {" "}
-        <h4 className="text-2xl text-blue-500 text-center">
-          IMPROVE WITH COURSES & COACHES
+        <h4 data-aos="fade-right" className="text-2xl text-blue-500 text-center">
+          Our Top Winning Game 
         </h4>
-        <h2 className="text-5xl font-bold text-center">EXPLORE OUR COACHES</h2>
+        <h2 data-aos="fade-left" className="text-5xl font-bold text-center">EXPLORE OUR COACHES</h2>
       </div>
 
       <Swiper

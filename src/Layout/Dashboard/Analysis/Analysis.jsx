@@ -1,13 +1,13 @@
+import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
-import axios from "axios";
 
 const Analysis = () => {
   const { user } = useContext(AuthContext);
   const [dbuser, setDbuser] = useState();
   useEffect(() => {
     axios
-      .get(` http://localhost:5000/user/${user?.uid}`)
+      .get(` https://b8a12-server-side-adnanalemran.vercel.app/user/${user?.uid}`)
       .then((res) => {
         setDbuser(res.data);
       })

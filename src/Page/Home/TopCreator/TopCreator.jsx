@@ -6,7 +6,7 @@ const TopCreator = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/creator/top3`)
+      .get(`https://b8a12-server-side-adnanalemran.vercel.app/creator/top3`)
       .then((res) => {
         setUsers(res.data);
       })
@@ -17,13 +17,14 @@ const TopCreator = () => {
 
   return (
     <div>
-      <div className="pt-32 pb-2">
-        <h4 className="text-2xl text-blue-500 text-center">Top #3 Creators</h4>
-        <h2 className="text-5xl font-bold text-center">Top Contest Creators</h2>
+      <div className="py-32 ">
+        <h4 data-aos="fade-right" className="text-2xl text-blue-500 text-center">Top #3 Creators</h4>
+        <h2 data-aos="fade-left" className="text-5xl font-bold text-center">Top Contest Creators</h2>
 
         <div className="flex flex-col lg:flex-row gap-4 justify-center items-center mt-16">
           {users.map((user) => (
             <div
+            data-aos="zoom-in"
               key={user._id}
               className="max-w-xs  bg-[#212472] border p-4 rounded-lg shadow-md mx-4"
             >

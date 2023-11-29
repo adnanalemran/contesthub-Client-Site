@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useLoaderData } from "react-router-dom";
-
+import "./styles.css";
 const SkeletonLoader = () => {
   return (
     <div className="md:w-[768px] lg:w-[1280px] mx-auto">
@@ -39,14 +39,13 @@ const SkeletonLoader = () => {
 const AllContest = () => {
   const [contest, setContest] = useState([]);
   const { count } = useLoaderData();
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(9);
   const numberOfPages = parseInt(Math.ceil(count / itemsPerPage));
   const [currentPage, setCurrentPage] = useState(0);
 
+ 
   useEffect(() => {
-    fetch(
-      `http://localhost:5000/contest?page=${currentPage}&size=${itemsPerPage}`
-    )
+    fetch(`https://b8a12-server-side-adnanalemran.vercel.app/api/contests/approved?page=${currentPage}&size=${itemsPerPage}`)
       .then((res) => res.json())
       .then((data) => setContest(data));
   }, [currentPage]);
@@ -64,10 +63,14 @@ const AllContest = () => {
       setCurrentPage(currentPage + 1);
     }
   };
+
+
+
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = (text) => {
-    fetch(`http://localhost:5000/contest/search/${text}`)
+    const hiddenPagination = des
+    fetch(`https://b8a12-server-side-adnanalemran.vercel.app/contest/search/${text}`)
       .then((res) => res.json())
       .then((data) => setSearchResults(data))
       .catch((error) => console.error("Error searching  ", error));
@@ -179,7 +182,7 @@ const AllContest = () => {
           ))
         )}
       </div>
-      <div className="flex justify-center space-x-1 pagination">
+      <div className="flex justify-center space-x-1 pagination" >
         <button
           onClick={handlePrevPage}
           title="previous"

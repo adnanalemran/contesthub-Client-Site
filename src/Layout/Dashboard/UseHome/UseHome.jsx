@@ -6,8 +6,8 @@ const UseHome = () => {
     return (
         <div>
        
-        <h2> Welcame User</h2>
-        {user?.displayName ? user?.displayName : "wlcome User"}
+        <h2> Welcome User</h2>
+        {user?.displayName ? user?.displayName : "welcome User"}
       </div>
     );
 };

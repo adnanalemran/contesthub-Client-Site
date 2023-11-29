@@ -9,21 +9,28 @@ const UpdateContest = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
+
       contestName: e.target.contestName.value,
       image: e.target.image.value,
       contestType: e.target.contestType.value,
       prizeMoney: e.target.prizeMoney.value,
       contestPrice: e.target.contestPrice.value,
       email: singleData.email,
+       
+      status: singleData.status,
+      orderCount: singleData.orderCount,
+      winner: singleData.winner,
       taskSubmissionInstruction: e.target.taskSubmissionInstruction.value,
       contestDeadline: e.target.contestDeadline.value,
-      shortDescription: e.target.shortDescription.value,
+      contestDescription: e.target.contestDescription.value,
     };
 
     console.log(formData);
-    try {
+    try {   
+      
+      
       const response = await fetch(
-        `http://localhost:5000/contest/update/${singleData._id}`,
+        `https://b8a12-server-side-adnanalemran.vercel.app/contest/update/${singleData._id}`,
         {
           method: "PUT",
           headers: {
@@ -32,19 +39,18 @@ const UpdateContest = () => {
           body: JSON.stringify(formData),
         }
       );
-
       if (response.ok) {
         Swal.fire({
           icon: "success",
           title: "Updated",
           text: "Your food has been updated successfully.",
         });
-        navigate(location?.state ? location.state : `/Dashboard/ManageContest`);
+        navigate(location?.state ? location.state : `/Dashboard`);
       } else {
         Swal.fire({
           icon: "error",
           title: "Update Failed",
-          text: "An error occurred while updating the food.",
+          text: "An error occurred while updating.",
         });
       }
     } catch (error) {
@@ -85,10 +91,6 @@ const UpdateContest = () => {
           />
         </div>
 
-
-
-
-
         <div className="flex w-full gap-4">
           <div className="space-y-1 text-sm w-1/2">
             <label className="block dark-text-gray-400">Category</label>
@@ -127,16 +129,16 @@ const UpdateContest = () => {
             />
           </div>
           <div className="space-y-1 text-sm w-1/2">
-            <label className="block dark-text-gray-400">Added by (email)</label>
-            <input
-              required
-              type="text"
-              name="email"
-              disabled
-              defaultValue={singleData.email}
-              className="w-full px-4 py-3 rounded-md dark-border-gray-700 dark-bg-gray-900 dark-text-gray-100 focus:dark-border-violet-400"
-            />
-          </div>
+  <label className="block dark-text-gray-400">Added by (email)</label>
+  <input
+    required
+    type="text"
+    name="email"
+    disabled
+    value={singleData.email}
+    className="w-full px-4 py-3 rounded-md dark-border-gray-700 dark-bg-gray-900 dark-text-gray-100 focus:dark-border-violet-400"
+  />
+</div>
         </div>
         <div className="flex w-full gap-4">
           <div className="space-y-1 text-sm w-1/2">
@@ -168,7 +170,7 @@ const UpdateContest = () => {
           <label className="block dark-text-gray-400">Description</label>
           <textarea
             required
-            name="shortDescription"
+            name="contestDescription"
             defaultValue={singleData.contestDescription}
             className="w-full px-4 py-3 rounded-md dark-border-gray-700 dark-bg-gray-900 dark-text-gray-100 focus:dark-border-violet-400"
           />

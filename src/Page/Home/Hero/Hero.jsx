@@ -8,7 +8,7 @@ const Hero = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch(`http://localhost:5000/contest/search/${data.search}`);
+      const response = await fetch(`https://b8a12-server-side-adnanalemran.vercel.app/contest/search/${data.search}`);
       const result = await response.json();
       setSearchResults(result);
     } catch (error) {
@@ -19,6 +19,7 @@ const Hero = () => {
   return (
     <div className=" mx-auto">
       <div
+      data-aos="fade-right"
         className="hero min-h-screen"
         style={{
           backgroundImage: "url(https://i.ibb.co/0rCgkbZ/index-overlay.png)",
@@ -31,10 +32,10 @@ const Hero = () => {
           />
 
           <div className="lg:w-1/2 ">
-            <h1 className=" text-3xl lg:text-7xl font-bold">
+            <h1 data-aos="fade-down" className=" text-3xl lg:text-7xl font-bold">
               TAKE YOUR CONTEST SKILLS TO THE NEXT LEVEL
             </h1>
-            <p className="py-4 lg:text-xl">
+            <p  data-aos="fade-up" className="py-4 lg:text-xl">
               Browse through hundreds of gaming competitions that will help you
               pursue your goals
             </p>

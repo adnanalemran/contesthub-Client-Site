@@ -1,11 +1,9 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import {
-  Link,
-  NavLink,
-  Navigate,
-  useLocation,
-  useNavigate,
+    Link,
+    NavLink,
+    Navigate
 } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../providers/AuthProvider";
@@ -24,7 +22,7 @@ const Header = () => {
   const [dbuser, setDbuser] = useState(null);
   useEffect(() => {
     axios
-      .get(` http://localhost:5000/user/${user?.uid}`)
+      .get(` https://b8a12-server-side-adnanalemran.vercel.app/user/${user?.uid}`)
       .then((res) => {
         setDbuser(res.data);
       })
@@ -71,7 +69,7 @@ const Header = () => {
     <div>
       <header className="p-4 bg-[#1B1D4D] shadow-lg poppins-font text-white">
         <div className="container flex justify-between h-16 mx-auto">
-          <Link>
+          <Link to="/">
             <img className=" w-52" src="./logo.png" alt="" />
           </Link>
           <ul className="items-stretch hidden space-x-3 lg:flex font-bold">
