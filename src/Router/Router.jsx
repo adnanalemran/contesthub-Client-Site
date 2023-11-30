@@ -18,11 +18,13 @@ import SignIn from "../Layout/REG/SignIn";
 import SignUp from "../Layout/REG/SignUp";
 import ContestDetails from "../Page/ContestDetails/ContestDetails";
 import PrivateRoute from "./PrivateRoute";
+import Page404 from "../Page/Error/Page404";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    errorElement:<Page404/>,
     children: [
       {
         path: "/",
